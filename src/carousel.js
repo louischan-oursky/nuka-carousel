@@ -39,6 +39,9 @@ const Carousel = React.createClass({
   mixins: [tweenState.Mixin],
 
   propTypes: {
+    // NOTE(louis): new prop
+    autoPlayWhileMouseOver: React.PropTypes.bool,
+
     afterSlide: React.PropTypes.func,
     autoplay: React.PropTypes.bool,
     autoplayInterval: React.PropTypes.number,
@@ -88,6 +91,7 @@ const Carousel = React.createClass({
 
   getDefaultProps() {
     return {
+      autoPlayWhileMouseOver: false,
       afterSlide: function() { },
       autoplay: false,
       autoplayInterval: 3000,
@@ -334,7 +338,7 @@ const Carousel = React.createClass({
   },
 
   handleMouseOver() {
-    if (this.props.autoplay) {
+    if (this.props.autoplay && !this.props.autoPlayWhileMouseOver) {
       this.autoplayPaused = true;
       this.stopAutoplay();
     }
